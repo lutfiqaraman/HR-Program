@@ -27,9 +27,12 @@ namespace HRAPI.Repository.DepartmentRepo
             throw new NotImplementedException();
         }
 
-        public Task<Department> InsertDepartment(Department department)
+        public async Task<Department> InsertDepartment(Department department)
         {
-            throw new NotImplementedException();
+            _context.Departments.Add(department);
+            await _context.SaveChangesAsync();
+            
+            return department;
         }
 
         public Task<Department> UpdateDepartment(Department department)
