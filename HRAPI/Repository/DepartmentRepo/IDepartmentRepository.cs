@@ -1,4 +1,4 @@
-﻿using HRAPI.Models;
+﻿using HRAPI.Entities;
 
 namespace HRAPI.Repository.DepartmentRepo
 {

@@ -1,4 +1,4 @@
-﻿using HRAPI.Models;
+﻿using HRAPI.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace HRAPI.DbContexts
