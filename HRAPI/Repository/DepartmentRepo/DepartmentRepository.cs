@@ -1,5 +1,6 @@
 ﻿using HRAPI.DbContexts;
 using HRAPI.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace HRAPI.Repository.DepartmentRepo
 {
@@ -33,6 +34,20 @@ namespace HRAPI.Repository.DepartmentRepo
             await _context.SaveChangesAsync();
             
             return department;
+        }
+
+        public async Task<bool> IsDepartmentExist(int departmentId)
+        {
+            return 
+                await _context.Departments.AnyAsync(c => c.Id == departmentId);
+        }
+
+        public async Task<bool> SaveChanges()
+        {
+            bool result =
+                await _context.SaveChangesAsync() >= 0;
+
+            return result;
         }
 
         public Task<Department> UpdateDepartment(Department department)
