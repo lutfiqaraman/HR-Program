@@ -10,7 +10,7 @@ namespace HRAPI.Controllers
     public class Department : ControllerBase
     {
         [HttpPost]
-        public async Task<ActionResult<DepartmentDto>> CreateDepartment(int departmentId, CreateDepartmentDto department)
+        public async Task<ActionResult<DepartmentDto>> CreateDepartment(CreateDepartmentDto department)
         {
             return NotFound();
         }
