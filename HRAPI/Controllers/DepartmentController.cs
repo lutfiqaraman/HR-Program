@@ -18,7 +18,7 @@ namespace HRAPI.Controllers
         }
 
         [HttpPost]
-        [Route("AddDepartment")]
+        [Route("Add")]
         public async Task<IActionResult> InsertDepartment(Department department)
         {
             Department? result =   
