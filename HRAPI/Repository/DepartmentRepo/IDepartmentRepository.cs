@@ -6,7 +6,7 @@ namespace HRAPI.Repository.DepartmentRepo
     {
         Task<IEnumerable<Department>> GetAllDepartments();
         Task<Department> GetDepartmentByID(int id);
-        Task<Department> InsertDepartment(Department department);
+        Task AddDepartment(Department department);
         Task<Department> UpdateDepartment(Department department);
         bool DeleteDepartment(int id);
         Task<bool> IsDepartmentExist(int departmentId);

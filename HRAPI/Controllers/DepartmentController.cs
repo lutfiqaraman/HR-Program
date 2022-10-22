@@ -1,6 +1,7 @@
-﻿using HRAPI.Entities;
+﻿using AutoMapper;
+using HRAPI.Entities;
+using HRAPI.Models;
 using HRAPI.Repository.DepartmentRepo;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HRAPI.Controllers
@@ -10,22 +11,29 @@ namespace HRAPI.Controllers
     public class DepartmentController : ControllerBase
     {
         private readonly IDepartmentRepository departmentRepository;
+        private readonly IMapper mapper;
 
-        public DepartmentController(IDepartmentRepository DepartmentRepository)
+        public DepartmentController(IDepartmentRepository DepartmentRepository, IMapper Mapper)
         {
             departmentRepository = 
                 DepartmentRepository ?? throw new ArgumentNullException(nameof(DepartmentRepository));
+
+            mapper = 
+                Mapper ?? throw new ArgumentNullException(nameof(Mapper));
         }
 
         [HttpPost]
-        [Route("Add")]
-        public async Task<IActionResult> InsertDepartment(Department department)
+        public async Task<ActionResult<CreateDepartmentDto>> CreateDepartment([FromBody] CreateDepartmentDto department)
         {
-            Department? result =   
-                await departmentRepository.InsertDepartment(department);
-
             if (department is null)
                 return StatusCode(StatusCodes.Status500InternalServerError, "something is wrong");
+
+            Department? mappedDepartment =   
+                mapper.Map<Department>(department);
+
+            await departmentRepository.AddDepartment(mappedDepartment);
+
+            await departmentRepository.SaveChanges();
 
             return Ok("Department has been added successfully");
         }
