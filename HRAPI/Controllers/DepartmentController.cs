@@ -37,5 +37,11 @@ namespace HRAPI.Controllers
 
             return Ok("Department has been added successfully");
         }
+
+        [HttpPut]
+        public ActionResult UpdateDepartment(int departmentId)
+        {
+            return;
+        }
     }
 }
