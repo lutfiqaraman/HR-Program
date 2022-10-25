@@ -43,5 +43,11 @@ namespace HRAPI.Controllers
         {
             return;
         }
+
+        [HttpDelete]
+        public ActionResult DeleteDepartment(int departmentId)
+        {
+            return;
+        }
     }
 }
