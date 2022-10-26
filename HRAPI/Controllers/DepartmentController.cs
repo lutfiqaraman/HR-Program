@@ -39,9 +39,19 @@ namespace HRAPI.Controllers
         }
 
         [HttpPut]
-        public ActionResult UpdateDepartment(int departmentId)
+        public async Task<ActionResult> UpdateDepartment(int departmentId, UpdateDepartmentDto department)
         {
-            return;
+            Department departmentEntity = 
+                await departmentRepository.GetDepartmentByID(departmentId);
+
+            if (departmentEntity == null)
+                NotFound();
+
+            mapper.Map(department, departmentEntity);
+
+            await departmentRepository.SaveChanges();
+
+            return Ok("Department has been updated successfully");
         }
 
         [HttpDelete]
