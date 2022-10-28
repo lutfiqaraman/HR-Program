@@ -1,5 +1,7 @@
-﻿using HRAPI.DbContexts;
+﻿using AutoMapper;
+using HRAPI.DbContexts;
 using HRAPI.Entities;
+using HRAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace HRAPI.Repository.DepartmentRepo
@@ -7,20 +9,15 @@ namespace HRAPI.Repository.DepartmentRepo
     public class DepartmentRepository : IDepartmentRepository
     {
         private readonly HRContext _context;
+        private readonly IMapper mapper;
 
-        public DepartmentRepository(HRContext context)
+        public DepartmentRepository(HRContext context, IMapper Mapper)
         {
-            _context = context ?? throw new ArgumentNullException(nameof(context));
-        }
+            _context = 
+                context ?? throw new ArgumentNullException(nameof(context));
 
-        public bool DeleteDepartment(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Department>> GetAllDepartments()
-        {
-            throw new NotImplementedException();
+            mapper =
+                Mapper ?? throw new ArgumentNullException(nameof(Mapper));
         }
 
         public async Task<Department?> GetDepartmentByID(int departmentId)
@@ -31,11 +28,42 @@ namespace HRAPI.Repository.DepartmentRepo
                 .Where(d => d.Id == departmentId).SingleOrDefaultAsync();
         }
 
-        public Task AddDepartment(Department department)
-        {    
-            _context.Departments.Add(department);
+        public Task<IEnumerable<Department>> GetAllDepartments()
+        {
+            throw new NotImplementedException();
+        }
 
-            return Task.CompletedTask;
+        public async Task AddDepartment(CreateDepartmentDto department)
+        {
+            Department? mappedDepartment =
+                mapper.Map<Department>(department);
+
+            _context.Departments.Add(mappedDepartment);
+
+            await 
+                SaveChanges();
+        }
+
+        public async Task<Department?> UpdateDepartment(int departmentId, UpdateDepartmentDto department)
+        {
+            Department? departmentEntity =
+                await GetDepartmentByID(departmentId);
+
+            Department? mappedDepartment =
+                mapper.Map(department, departmentEntity);
+
+            if (mappedDepartment != null)
+            {
+                _context.Entry(mappedDepartment).State = EntityState.Modified;
+                await SaveChanges();
+            }
+
+            return mappedDepartment;
+        }
+
+        public bool DeleteDepartment(int id)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<bool> IsDepartmentExist(int departmentId)
@@ -50,11 +78,6 @@ namespace HRAPI.Repository.DepartmentRepo
                 await _context.SaveChangesAsync() >= 0;
 
             return result;
-        }
-
-        public Task<Department> UpdateDepartment(Department department)
-        {
-            throw new NotImplementedException();
         }
     }
 }

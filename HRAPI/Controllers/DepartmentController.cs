@@ -28,12 +28,7 @@ namespace HRAPI.Controllers
             if (department is null)
                 return StatusCode(StatusCodes.Status500InternalServerError, "something is wrong");
 
-            Department? mappedDepartment =
-                mapper.Map<Department>(department);
-
-            await departmentRepository.AddDepartment(mappedDepartment);
-
-            await departmentRepository.SaveChanges();
+            await departmentRepository.AddDepartment(department);
 
             return Ok("Department has been added successfully");
         }
@@ -41,15 +36,10 @@ namespace HRAPI.Controllers
         [HttpPut("{departmentid}")]
         public async Task<ActionResult> UpdateDepartment(int departmentId, UpdateDepartmentDto department)
         {
-            Department? departmentEntity = 
-                await departmentRepository.GetDepartmentByID(departmentId);
+            if (department is null)
+                return StatusCode(StatusCodes.Status500InternalServerError, "something is wrong");
 
-            if (departmentEntity == null)
-                NotFound();
-
-            mapper.Map(department, departmentEntity);
-
-            await departmentRepository.SaveChanges();
+            await departmentRepository.UpdateDepartment(departmentId, department);
 
             return Ok("Department has been updated successfully");
         }

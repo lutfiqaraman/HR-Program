@@ -1,4 +1,5 @@
 ﻿using HRAPI.Entities;
+using HRAPI.Models;
 
 namespace HRAPI.Repository.DepartmentRepo
 {
@@ -6,8 +7,8 @@ namespace HRAPI.Repository.DepartmentRepo
     {
         Task<IEnumerable<Department>> GetAllDepartments();
         Task<Department?> GetDepartmentByID(int departmentId);
-        Task AddDepartment(Department department);
-        Task<Department> UpdateDepartment(Department department);
+        Task AddDepartment(CreateDepartmentDto department);
+        Task<Department?> UpdateDepartment(int departmentId, UpdateDepartmentDto department);
         bool DeleteDepartment(int id);
         Task<bool> IsDepartmentExist(int departmentId);
         Task<bool> SaveChanges();
