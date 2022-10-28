@@ -5,7 +5,7 @@ namespace HRAPI.Repository.DepartmentRepo
     public interface IDepartmentRepository
     {
         Task<IEnumerable<Department>> GetAllDepartments();
-        Task<Department> GetDepartmentByID(int id);
+        Task<Department?> GetDepartmentByID(int departmentId);
         Task AddDepartment(Department department);
         Task<Department> UpdateDepartment(Department department);
         bool DeleteDepartment(int id);

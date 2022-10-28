@@ -15,10 +15,10 @@ namespace HRAPI.Controllers
 
         public DepartmentController(IDepartmentRepository DepartmentRepository, IMapper Mapper)
         {
-            departmentRepository = 
+            departmentRepository =
                 DepartmentRepository ?? throw new ArgumentNullException(nameof(DepartmentRepository));
 
-            mapper = 
+            mapper =
                 Mapper ?? throw new ArgumentNullException(nameof(Mapper));
         }
 
@@ -28,7 +28,7 @@ namespace HRAPI.Controllers
             if (department is null)
                 return StatusCode(StatusCodes.Status500InternalServerError, "something is wrong");
 
-            Department? mappedDepartment =   
+            Department? mappedDepartment =
                 mapper.Map<Department>(department);
 
             await departmentRepository.AddDepartment(mappedDepartment);
@@ -38,10 +38,10 @@ namespace HRAPI.Controllers
             return Ok("Department has been added successfully");
         }
 
-        [HttpPut]
+        [HttpPut("{departmentid}")]
         public async Task<ActionResult> UpdateDepartment(int departmentId, UpdateDepartmentDto department)
         {
-            Department departmentEntity = 
+            Department? departmentEntity = 
                 await departmentRepository.GetDepartmentByID(departmentId);
 
             if (departmentEntity == null)
@@ -52,12 +52,6 @@ namespace HRAPI.Controllers
             await departmentRepository.SaveChanges();
 
             return Ok("Department has been updated successfully");
-        }
-
-        [HttpDelete]
-        public ActionResult DeleteDepartment(int departmentId)
-        {
-            return;
         }
     }
 }

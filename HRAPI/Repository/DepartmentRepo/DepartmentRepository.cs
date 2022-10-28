@@ -23,9 +23,12 @@ namespace HRAPI.Repository.DepartmentRepo
             throw new NotImplementedException();
         }
 
-        public Task<Department> GetDepartmentByID(int id)
+        public async Task<Department?> GetDepartmentByID(int departmentId)
         {
-            throw new NotImplementedException();
+            return 
+                await _context
+                .Departments
+                .Where(d => d.Id == departmentId).SingleOrDefaultAsync();
         }
 
         public Task AddDepartment(Department department)

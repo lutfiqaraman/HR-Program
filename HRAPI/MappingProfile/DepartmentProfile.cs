@@ -10,6 +10,9 @@ namespace HRAPI.MappingProfile
         {
             CreateMap<DepartmentDto, Department>();
             CreateMap<CreateDepartmentDto, Department>();
+
+            CreateMap<UpdateDepartmentDto, Department>();
+            CreateMap<Department, UpdateDepartmentDto>();
         }
     }
 }
