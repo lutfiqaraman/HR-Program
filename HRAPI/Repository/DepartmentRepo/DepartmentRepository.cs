@@ -8,13 +8,13 @@ namespace HRAPI.Repository.DepartmentRepo
 {
     public class DepartmentRepository : IDepartmentRepository
     {
-        private readonly HRContext _context;
+        private readonly HRContext context;
         private readonly IMapper mapper;
 
-        public DepartmentRepository(HRContext context, IMapper Mapper)
+        public DepartmentRepository(HRContext Context, IMapper Mapper)
         {
-            _context = 
-                context ?? throw new ArgumentNullException(nameof(context));
+            context = 
+                context ?? throw new ArgumentNullException(nameof(Context));
 
             mapper =
                 Mapper ?? throw new ArgumentNullException(nameof(Mapper));
@@ -23,7 +23,7 @@ namespace HRAPI.Repository.DepartmentRepo
         public async Task<Department?> GetDepartmentByID(int departmentId)
         {
             return 
-                await _context
+                await context
                 .Departments
                 .Where(d => d.Id == departmentId).SingleOrDefaultAsync();
         }
@@ -38,7 +38,7 @@ namespace HRAPI.Repository.DepartmentRepo
             Department? mappedDepartment =
                 mapper.Map<Department>(department);
 
-            _context.Departments.Add(mappedDepartment);
+            context.Departments.Add(mappedDepartment);
 
             await 
                 SaveChanges();
@@ -54,7 +54,7 @@ namespace HRAPI.Repository.DepartmentRepo
 
             if (mappedDepartment != null)
             {
-                _context.Entry(mappedDepartment).State = EntityState.Modified;
+                context.Entry(mappedDepartment).State = EntityState.Modified;
                 await SaveChanges();
             }
 
@@ -69,13 +69,13 @@ namespace HRAPI.Repository.DepartmentRepo
         public async Task<bool> IsDepartmentExist(int departmentId)
         {
             return 
-                await _context.Departments.AnyAsync(c => c.Id == departmentId);
+                await context.Departments.AnyAsync(c => c.Id == departmentId);
         }
 
         public async Task<bool> SaveChanges()
         {
             bool result =
-                await _context.SaveChangesAsync() >= 0;
+                await context.SaveChangesAsync() >= 0;
 
             return result;
         }
