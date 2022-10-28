@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using HRAPI.Entities;
-using HRAPI.Models;
+using HRAPI.Models.DepartmentDtos;
 
 namespace HRAPI.MappingProfile
 {

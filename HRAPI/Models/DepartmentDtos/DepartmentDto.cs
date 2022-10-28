@@ -1,4 +1,4 @@
-﻿namespace HRAPI.Models
+﻿namespace HRAPI.Models.DepartmentDtos
 {
     public class DepartmentDto
     {

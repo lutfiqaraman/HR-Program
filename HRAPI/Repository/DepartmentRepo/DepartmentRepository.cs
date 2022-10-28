@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using HRAPI.DbContexts;
 using HRAPI.Entities;
-using HRAPI.Models;
+using HRAPI.Models.DepartmentDtos;
 using Microsoft.EntityFrameworkCore;
 
 namespace HRAPI.Repository.DepartmentRepo

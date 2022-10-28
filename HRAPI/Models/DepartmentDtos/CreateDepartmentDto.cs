@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace HRAPI.Models
+namespace HRAPI.Models.DepartmentDtos
 {
     public class CreateDepartmentDto
     {

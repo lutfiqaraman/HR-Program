@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using HRAPI.Entities;
-using HRAPI.Models;
+﻿using HRAPI.Models.DepartmentDtos;
 using HRAPI.Repository.DepartmentRepo;
 using Microsoft.AspNetCore.Mvc;
 
