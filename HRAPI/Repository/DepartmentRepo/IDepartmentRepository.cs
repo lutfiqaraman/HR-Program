@@ -9,7 +9,7 @@ namespace HRAPI.Repository.DepartmentRepo
         Task<Department?> GetDepartmentByID(int departmentId);
         Task AddDepartment(CreateDepartmentDto department);
         Task<Department?> UpdateDepartment(int departmentId, UpdateDepartmentDto department);
-        bool DeleteDepartment(int id);
+        Task<bool> DeleteDepartment(int departmentId);
         Task<bool> IsDepartmentExist(int departmentId);
         Task<bool> SaveChanges();
     }

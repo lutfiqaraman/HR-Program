@@ -14,7 +14,7 @@ namespace HRAPI.Repository.DepartmentRepo
         public DepartmentRepository(HRContext Context, IMapper Mapper)
         {
             context = 
-                context ?? throw new ArgumentNullException(nameof(Context));
+                Context ?? throw new ArgumentNullException(nameof(Context));
 
             mapper =
                 Mapper ?? throw new ArgumentNullException(nameof(Mapper));
@@ -61,9 +61,24 @@ namespace HRAPI.Repository.DepartmentRepo
             return mappedDepartment;
         }
 
-        public bool DeleteDepartment(int id)
+        public async Task<bool> DeleteDepartment(int departmentId)
         {
-            throw new NotImplementedException();
+            bool result = false;
+
+            Department? departmentEntity =
+                await GetDepartmentByID(departmentId);
+
+            if (departmentEntity != null)
+            {
+                context.Entry(departmentEntity).State = EntityState.Deleted;
+                await SaveChanges();
+
+                result = true;
+
+                return result;
+            }
+
+            return result;
         }
 
         public async Task<bool> IsDepartmentExist(int departmentId)

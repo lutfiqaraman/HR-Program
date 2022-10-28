@@ -1,4 +1,5 @@
-﻿using HRAPI.Models.DepartmentDtos;
+﻿using HRAPI.Entities;
+using HRAPI.Models.DepartmentDtos;
 using HRAPI.Repository.DepartmentRepo;
 using Microsoft.AspNetCore.Mvc;
 
@@ -36,6 +37,19 @@ namespace HRAPI.Controllers
             await departmentRepository.UpdateDepartment(departmentId, department);
 
             return Ok("Department has been updated successfully");
+        }
+
+        [HttpDelete("{departmentid}")]
+        public async Task<ActionResult> DeleteDepartment(int departmentId)
+        {
+            bool result =  
+                await departmentRepository.DeleteDepartment(departmentId);
+
+            if (result)
+                return Ok("Department has been deleted");
+            
+                
+            return StatusCode(StatusCodes.Status500InternalServerError, "something is wrong");
         }
     }
 }
