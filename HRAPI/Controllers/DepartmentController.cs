@@ -11,15 +11,11 @@ namespace HRAPI.Controllers
     public class DepartmentController : ControllerBase
     {
         private readonly IDepartmentRepository departmentRepository;
-        private readonly IMapper mapper;
 
-        public DepartmentController(IDepartmentRepository DepartmentRepository, IMapper Mapper)
+        public DepartmentController(IDepartmentRepository DepartmentRepository)
         {
             departmentRepository =
                 DepartmentRepository ?? throw new ArgumentNullException(nameof(DepartmentRepository));
-
-            mapper =
-                Mapper ?? throw new ArgumentNullException(nameof(Mapper));
         }
 
         [HttpPost]
