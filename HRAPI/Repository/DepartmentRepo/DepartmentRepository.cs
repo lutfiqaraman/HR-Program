@@ -28,9 +28,15 @@ namespace HRAPI.Repository.DepartmentRepo
                 .Where(d => d.Id == departmentId).SingleOrDefaultAsync();
         }
 
-        public Task<IEnumerable<Department>> GetAllDepartments()
+        public async Task<IEnumerable<DepartmentDto>> GetAllDepartments()
         {
-            throw new NotImplementedException();
+            List<Department> lstDepartments = 
+                await context.Departments.ToListAsync();
+
+            IEnumerable<DepartmentDto> departments =
+                mapper.Map<IEnumerable<DepartmentDto>>(lstDepartments);
+
+            return departments;
         }
 
         public async Task AddDepartment(CreateDepartmentDto department)

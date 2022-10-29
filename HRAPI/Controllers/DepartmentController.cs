@@ -17,6 +17,15 @@ namespace HRAPI.Controllers
                 DepartmentRepository ?? throw new ArgumentNullException(nameof(DepartmentRepository));
         }
 
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<DepartmentDto>>> GetAllDepartments()
+        {
+            IEnumerable<DepartmentDto> departments = 
+                await departmentRepository.GetAllDepartments();
+
+            return Ok(departments);
+        }
+
         [HttpPost]
         public async Task<ActionResult<CreateDepartmentDto>> CreateDepartment([FromBody] CreateDepartmentDto department)
         {
