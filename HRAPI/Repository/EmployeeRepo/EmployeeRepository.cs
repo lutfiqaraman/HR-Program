@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using HRAPI.DbContexts;
+using HRAPI.Entities;
+using HRAPI.Models.EmployeeDtos;
 
 namespace HRAPI.Repository.EmployeeRepo
 {
@@ -17,12 +19,12 @@ namespace HRAPI.Repository.EmployeeRepo
                 Mapper ?? throw new ArgumentNullException(nameof(Mapper));
         }
 
-        public Task GetAllEmployees()
+        public Task<IEnumerable<EmployeeDto>> GetAllEmployees()
         {
             throw new NotImplementedException();
         }
 
-        public Task GetEmployeeByID(int employeeId)
+        public Task<Employee?> GetEmployeeByID(int employeeId)
         {
             throw new NotImplementedException();
         }
