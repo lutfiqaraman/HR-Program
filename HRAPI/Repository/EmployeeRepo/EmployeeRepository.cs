@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using HRAPI.DbContexts;
 using HRAPI.Entities;
+using HRAPI.Models.DepartmentDtos;
 using HRAPI.Models.EmployeeDtos;
+using Microsoft.EntityFrameworkCore;
 
 namespace HRAPI.Repository.EmployeeRepo
 {
@@ -19,14 +21,23 @@ namespace HRAPI.Repository.EmployeeRepo
                 Mapper ?? throw new ArgumentNullException(nameof(Mapper));
         }
 
-        public Task<IEnumerable<EmployeeDto>> GetAllEmployees()
+        public async Task<IEnumerable<EmployeeDto>> GetAllEmployees()
         {
-            throw new NotImplementedException();
+            List<Employee> lstEmployees =
+                await context.Employees.ToListAsync();
+
+            IEnumerable<EmployeeDto> employees =
+                mapper.Map<IEnumerable<EmployeeDto>>(lstEmployees);
+
+            return employees;
         }
 
-        public Task<Employee?> GetEmployeeByID(int employeeId)
+        public async Task<Employee?> GetEmployeeByID(int employeeId)
         {
-            throw new NotImplementedException();
+            return 
+                await context
+                .Employees
+                .Where(d => d.Id == employeeId).SingleOrDefaultAsync();
         }
     }
 }
