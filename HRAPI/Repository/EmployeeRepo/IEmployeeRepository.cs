@@ -7,6 +7,6 @@ namespace HRAPI.Repository.EmployeeRepo
     public interface IEmployeeRepository
     {
         Task<IEnumerable<EmployeeDto>> GetAllEmployees();
-        Task<Employee?> GetEmployeeByID(int employeeId);
+        Task<EmployeeDto?> GetEmployeeByID(int employeeId);
     }
 }

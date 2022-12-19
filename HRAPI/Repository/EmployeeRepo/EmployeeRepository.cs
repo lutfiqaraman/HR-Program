@@ -32,12 +32,17 @@ namespace HRAPI.Repository.EmployeeRepo
             return employees;
         }
 
-        public async Task<Employee?> GetEmployeeByID(int employeeId)
+        public async Task<EmployeeDto?> GetEmployeeByID(int employeeId)
         {
-            return 
+            Employee? employeeFromDB = 
                 await context
                 .Employees
                 .Where(d => d.Id == employeeId).SingleOrDefaultAsync();
+
+            EmployeeDto employee = 
+                mapper.Map<EmployeeDto>(employeeFromDB);
+
+            return employee;
         }
     }
 }
