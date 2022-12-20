@@ -21,6 +21,11 @@ namespace HRAPI.Repository.EmployeeRepo
                 Mapper ?? throw new ArgumentNullException(nameof(Mapper));
         }
 
+        public Task AddEmployee()
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<IEnumerable<EmployeeDto>> GetAllEmployees()
         {
             List<Employee> lstEmployees =
