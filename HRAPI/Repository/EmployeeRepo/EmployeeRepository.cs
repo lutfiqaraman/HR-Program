@@ -26,6 +26,11 @@ namespace HRAPI.Repository.EmployeeRepo
             throw new NotImplementedException();
         }
 
+        public Task DeleteEmployee()
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<IEnumerable<EmployeeDto>> GetAllEmployees()
         {
             List<Employee> lstEmployees =
@@ -48,6 +53,11 @@ namespace HRAPI.Repository.EmployeeRepo
                 mapper.Map<EmployeeDto>(employeeFromDB);
 
             return employee;
+        }
+
+        public Task UpdateEmployee()
+        {
+            throw new NotImplementedException();
         }
     }
 }
