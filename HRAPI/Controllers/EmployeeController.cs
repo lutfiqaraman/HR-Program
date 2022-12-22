@@ -6,7 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HRAPI.Controllers
 {
-    public class EmployeeController : Controller
+    [Route("api/employee")]
+    [ApiController]
+    public class EmployeeController : ControllerBase
     {
         private readonly IEmployeeRepository employeeRepository;
 

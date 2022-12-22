@@ -34,7 +34,7 @@ namespace HRAPI.Repository.EmployeeRepo
         public async Task<IEnumerable<EmployeeDto>> GetAllEmployees()
         {
             List<Employee> lstEmployees =
-                await context.Employees.ToListAsync();
+                await context.Employees.Include(e => e.Department).ToListAsync();
 
             IEnumerable<EmployeeDto> employees =
                 mapper.Map<IEnumerable<EmployeeDto>>(lstEmployees);
@@ -47,7 +47,8 @@ namespace HRAPI.Repository.EmployeeRepo
             Employee? employeeFromDB = 
                 await context
                 .Employees
-                .Where(d => d.Id == employeeId).SingleOrDefaultAsync();
+                .Include(e => e.Department)
+                .SingleOrDefaultAsync(e => e.Id == employeeId);
 
             EmployeeDto employee = 
                 mapper.Map<EmployeeDto>(employeeFromDB);
