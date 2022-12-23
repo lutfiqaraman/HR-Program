@@ -71,12 +71,12 @@ namespace HRAPI.Repository.DepartmentRepo
         {
             bool result = false;
 
-            Department? departmentEntity =
-                await GetDepartmentByID(departmentId);
+            Department? department =
+                context.Departments.FirstOrDefault(d => d.Id == departmentId);    
 
-            if (departmentEntity != null)
+            if (department != null)
             {
-                context.Entry(departmentEntity).State = EntityState.Deleted;
+                context.Entry(department).State = EntityState.Deleted;
                 await SaveChanges();
 
                 result = true;

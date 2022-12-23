@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using HRAPI.DbContexts;
 using HRAPI.Entities;
-using HRAPI.Models.DepartmentDtos;
 using HRAPI.Models.EmployeeDtos;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,11 +21,6 @@ namespace HRAPI.Repository.EmployeeRepo
         }
 
         public Task AddEmployee()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task DeleteEmployee()
         {
             throw new NotImplementedException();
         }
@@ -59,6 +53,55 @@ namespace HRAPI.Repository.EmployeeRepo
         public Task UpdateEmployee()
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<bool> DeleteEmployee(int employeeId)
+        {
+            try
+            {
+                bool result = false;
+
+                Employee? employee =
+                    context.Employees.FirstOrDefault(e => e.Id == employeeId);
+
+                if (employee != null)
+                {
+                    context.Entry(employee).State = EntityState.Deleted;
+                    await SaveChanges();
+
+                    result = true;
+
+                    return result;
+                }
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                if (ex.Source != null)
+                    throw new Exception(ex.Message);
+
+                throw;
+            }
+        }
+
+        public async Task<bool> SaveChanges()
+        {
+            try
+            {
+                bool result =
+                    await context.SaveChangesAsync() >= 0;
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                if (ex.Source != null)
+                    throw new Exception(ex.Message);
+                
+                throw;
+            }
+            
         }
     }
 }

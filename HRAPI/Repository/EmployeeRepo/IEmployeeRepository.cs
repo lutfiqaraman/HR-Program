@@ -10,6 +10,6 @@ namespace HRAPI.Repository.EmployeeRepo
         Task<EmployeeDto?> GetEmployeeByID(int employeeId);
         Task AddEmployee();
         Task UpdateEmployee();
-        Task DeleteEmployee();
+        Task<bool> DeleteEmployee(int employeeId);
     }
 }

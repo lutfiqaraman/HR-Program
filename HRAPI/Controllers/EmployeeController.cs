@@ -37,5 +37,17 @@ namespace HRAPI.Controllers
             return Ok(employee);
         }
 
+        [HttpDelete("{employeeId}")]
+        public async Task<ActionResult> DeleteEmployee(int employeeId)
+        {
+            bool result =
+                await employeeRepository.DeleteEmployee(employeeId);
+
+            if (result)
+                return Ok("Employee has been deleted");
+
+
+            return StatusCode(StatusCodes.Status500InternalServerError, "something is wrong");
+        }
     }
 }

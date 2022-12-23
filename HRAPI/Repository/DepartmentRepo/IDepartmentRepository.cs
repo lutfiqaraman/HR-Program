@@ -11,6 +11,5 @@ namespace HRAPI.Repository.DepartmentRepo
         Task<Department?> UpdateDepartment(int departmentId, UpdateDepartmentDto department);
         Task<bool> DeleteDepartment(int departmentId);
         Task<bool> IsDepartmentExist(int departmentId);
-        Task<bool> SaveChanges();
     }
 }
