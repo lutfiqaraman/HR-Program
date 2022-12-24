@@ -1,6 +1,4 @@
-﻿using HRAPI.Models.DepartmentDtos;
-using HRAPI.Models.EmployeeDtos;
-using HRAPI.Repository.DepartmentRepo;
+﻿using HRAPI.Models.EmployeeDtos;
 using HRAPI.Repository.EmployeeRepo;
 using Microsoft.AspNetCore.Mvc;
 
