@@ -1,5 +1,4 @@
 ﻿using HRAPI.Entities;
-using HRAPI.Models.DepartmentDtos;
 using HRAPI.Models.EmployeeDtos;
 
 namespace HRAPI.Repository.EmployeeRepo
@@ -8,8 +7,8 @@ namespace HRAPI.Repository.EmployeeRepo
     {
         Task<IEnumerable<EmployeeDto>> GetAllEmployees();
         Task<EmployeeDto?> GetEmployeeByID(int employeeId);
-        Task AddEmployee();
-        Task UpdateEmployee();
+        Task AddEmployee(CreateEmployeeDto employee);
+        Task<UpdateEmployeeDto?> UpdateEmployee(int employeeId, UpdateEmployeeDto employee);
         Task<bool> DeleteEmployee(int employeeId);
     }
 }

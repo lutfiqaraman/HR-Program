@@ -20,11 +20,6 @@ namespace HRAPI.Repository.EmployeeRepo
                 Mapper ?? throw new ArgumentNullException(nameof(Mapper));
         }
 
-        public Task AddEmployee()
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<IEnumerable<EmployeeDto>> GetAllEmployees()
         {
             List<Employee> lstEmployees =
@@ -50,9 +45,51 @@ namespace HRAPI.Repository.EmployeeRepo
             return employee;
         }
 
-        public Task UpdateEmployee()
+        public async Task AddEmployee(CreateEmployeeDto employee)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Employee? mappedEmployee =
+                    mapper.Map<Employee>(employee);
+
+                context.Employees.Add(mappedEmployee);
+
+                await
+                    SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                if (ex.Source != null)
+                    throw new Exception(ex.Message);
+
+                throw;
+            }
+        }
+
+        public async Task<UpdateEmployeeDto?> UpdateEmployee(int employeeId, UpdateEmployeeDto updateEmployeeDto)
+        {
+            try
+            {
+                updateEmployeeDto.Id = employeeId;
+
+                Employee? employee =
+                    mapper.Map<Employee>(updateEmployeeDto);
+
+                if (employee != null)
+                {
+                    context.Entry(employee).State = EntityState.Modified;
+                    await SaveChanges();
+                }
+
+                return updateEmployeeDto;
+            }
+            catch (Exception ex)
+            {
+                if (ex.Source != null)
+                    throw new Exception(ex.Message);
+
+                throw;
+            }
         }
 
         public async Task<bool> DeleteEmployee(int employeeId)
@@ -103,5 +140,7 @@ namespace HRAPI.Repository.EmployeeRepo
             }
             
         }
+
+        
     }
 }

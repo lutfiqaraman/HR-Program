@@ -37,6 +37,28 @@ namespace HRAPI.Controllers
             return Ok(employee);
         }
 
+        [HttpPost]
+        public async Task<ActionResult<CreateEmployeeDto>> CreateEmployee([FromBody] CreateEmployeeDto employee)
+        {
+            if (employee is null)
+                return StatusCode(StatusCodes.Status500InternalServerError, "something is wrong");
+
+            await employeeRepository.AddEmployee(employee);
+
+            return Ok("Employee has been added successfully");
+        }
+
+        [HttpPut("{employeeId}")]
+        public async Task<ActionResult> UpdateEmployee(int employeeId, [FromBody]  UpdateEmployeeDto employee)
+        {
+            if (employee is null)
+                return StatusCode(StatusCodes.Status500InternalServerError, "something is wrong");
+
+            await employeeRepository.UpdateEmployee(employeeId, employee);
+
+            return Ok("Employee has been updated successfully");
+        }
+
         [HttpDelete("{employeeId}")]
         public async Task<ActionResult> DeleteEmployee(int employeeId)
         {

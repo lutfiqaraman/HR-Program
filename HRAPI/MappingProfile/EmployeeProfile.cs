@@ -10,6 +10,12 @@ namespace HRAPI.MappingProfile
         {
             CreateMap<EmployeeDto, Employee>();
             CreateMap<Employee, EmployeeDto>();
+
+            CreateMap<CreateEmployeeDto, Employee>();
+            CreateMap<Employee, CreateEmployeeDto>();
+
+            CreateMap<UpdateEmployeeDto, Employee>();
+            CreateMap<Employee, UpdateEmployeeDto>();
         }
     }
 }
