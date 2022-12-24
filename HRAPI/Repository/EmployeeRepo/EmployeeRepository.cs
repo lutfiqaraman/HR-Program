@@ -138,7 +138,6 @@ namespace HRAPI.Repository.EmployeeRepo
                 
                 throw;
             }
-
         }
     }
 }
