@@ -33,16 +33,16 @@ namespace HRAPI.Repository.EmployeeRepo
 
         public async Task<EmployeeDto?> GetEmployeeByID(int employeeId)
         {
-            Employee? employeeFromDB = 
+            Employee? employee = 
                 await context
                 .Employees
                 .Include(e => e.Department)
                 .SingleOrDefaultAsync(e => e.Id == employeeId);
 
-            EmployeeDto employee = 
-                mapper.Map<EmployeeDto>(employeeFromDB);
+            EmployeeDto employeeDto = 
+                mapper.Map<EmployeeDto>(employee);
 
-            return employee;
+            return employeeDto;
         }
 
         public async Task AddEmployee(CreateEmployeeDto employee)

@@ -20,12 +20,18 @@ namespace HRAPI.Repository.DepartmentRepo
                 Mapper ?? throw new ArgumentNullException(nameof(Mapper));
         }
 
-        public async Task<Department?> GetDepartmentByID(int departmentId)
+        public async Task<DepartmentDto?> GetDepartmentByID(int departmentId)
         {
-            return 
+            Department? department =
                 await context
                 .Departments
-                .Where(d => d.Id == departmentId).SingleOrDefaultAsync();
+                .Where(d => d.Id == departmentId)
+                .SingleOrDefaultAsync();
+
+            DepartmentDto departmentDto =
+                mapper.Map<DepartmentDto>(department);
+
+            return departmentDto;
         }
 
         public async Task<IEnumerable<DepartmentDto>> GetAllDepartments()
@@ -50,21 +56,20 @@ namespace HRAPI.Repository.DepartmentRepo
                 SaveChanges();
         }
 
-        public async Task<Department?> UpdateDepartment(int departmentId, UpdateDepartmentDto department)
+        public async Task<Department?> UpdateDepartment(int departmentId, UpdateDepartmentDto updateDepartmentDto)
         {
-            Department? departmentEntity =
-                await GetDepartmentByID(departmentId);
+            updateDepartmentDto.Id = departmentId;
 
-            Department? mappedDepartment =
-                mapper.Map(department, departmentEntity);
+            Department? department =
+                mapper.Map<Department>(updateDepartmentDto);
 
-            if (mappedDepartment != null)
+            if (department != null)
             {
-                context.Entry(mappedDepartment).State = EntityState.Modified;
+                context.Entry(department).State = EntityState.Modified;
                 await SaveChanges();
             }
 
-            return mappedDepartment;
+            return department;
         }
 
         public async Task<bool> DeleteDepartment(int departmentId)

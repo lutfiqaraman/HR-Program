@@ -1,6 +1,8 @@
 ﻿using HRAPI.Entities;
 using HRAPI.Models.DepartmentDtos;
+using HRAPI.Models.EmployeeDtos;
 using HRAPI.Repository.DepartmentRepo;
+using HRAPI.Repository.EmployeeRepo;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HRAPI.Controllers
@@ -24,6 +26,15 @@ namespace HRAPI.Controllers
                 await departmentRepository.GetAllDepartments();
 
             return Ok(departments);
+        }
+
+        [HttpGet("{departmentid}")]
+        public async Task<ActionResult<DepartmentDto>> GetDepartmentById(int departmentId)
+        {
+            DepartmentDto? department =
+                await departmentRepository.GetDepartmentByID(departmentId);
+
+            return Ok(department);
         }
 
         [HttpPost]
