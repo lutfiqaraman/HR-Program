@@ -47,7 +47,7 @@ namespace HRAPI.Controllers
         }
 
         [HttpPut("{employeeId}")]
-        public async Task<ActionResult> UpdateEmployee(int employeeId, [FromBody]  UpdateEmployeeDto employee)
+        public async Task<ActionResult> UpdateEmployee(int employeeId, [FromBody] UpdateEmployeeDto employee)
         {
             if (employee is null)
                 return StatusCode(StatusCodes.Status500InternalServerError, "something is wrong");
