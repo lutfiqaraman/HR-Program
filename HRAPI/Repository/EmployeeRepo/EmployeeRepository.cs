@@ -140,7 +140,5 @@ namespace HRAPI.Repository.EmployeeRepo
             }
             
         }
-
-        
     }
 }
