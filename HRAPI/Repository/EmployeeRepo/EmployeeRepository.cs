@@ -66,7 +66,7 @@ namespace HRAPI.Repository.EmployeeRepo
             }
         }
 
-        public async Task<UpdateEmployeeDto?> UpdateEmployee(int employeeId, UpdateEmployeeDto updateEmployeeDto)
+        public async Task<Employee?> UpdateEmployee(int employeeId, UpdateEmployeeDto updateEmployeeDto)
         {
             try
             {
@@ -81,7 +81,7 @@ namespace HRAPI.Repository.EmployeeRepo
                     await SaveChanges();
                 }
 
-                return updateEmployeeDto;
+                return employee;
             }
             catch (Exception ex)
             {
